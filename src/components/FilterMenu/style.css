@@ -1,0 +1,43 @@
+.tab {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  padding: 5px;
+}
+select,
+::picker(select) {
+  appearance: base-select;
+  border: none;
+}
+select {
+  border: 2px solid #ddd;
+  background: #eee;
+  padding: 10px;
+  transition: 0.4s;
+  color: black;
+}
+select:hover,
+select:focus {
+  background: #ddd;
+  /* border: none; */
+}
+
+/*  */
+option {
+  display: flex;
+  justify-content: flex-start;
+  gap: 20px;
+  color: gray;
+  border: 2px solid #ddd;
+  background: #eee;
+  padding: 10px;
+  transition: 0.4s;
+}
+
+option:hover,
+option:focus {
+  background: rgb(225, 225, 225);
+}
+option:checked {
+  font-weight: bold;
+}
