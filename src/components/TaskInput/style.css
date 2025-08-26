@@ -29,6 +29,7 @@
   padding: 10px;
   align-items: center;
   justify-items: center;
+  cursor: pointer;
 }
 .input-box button img {
   height: 17px;

@@ -3,41 +3,46 @@ import TaskContainer from "../../components/TaskContainer";
 import Filtermenu from "../../components/FilterMenu";
 import TaskProvider from "../../TaskContext";
 import { auth } from "../../firebase";
-
 import { signOut, onAuthStateChanged } from "firebase/auth";
 import { Navigate, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import "./style.css";
 
 export default function Home() {
   const navigate = useNavigate();
-  const [user, setUser] = useState(null);
-  useEffect(() => {
-    // const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-    //   debugger;
-    //   setUser(currentUser);
-    // });
-    // return () => unsubscribe();
-  }, []);
+  // const [user, setUser] = useState(null);
+  // useEffect(() => {
+  //   // const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+  //   //   debugger;
+  //   //   setUser(currentUser);
+  //   // });
+  //   // return () => unsubscribe();
+  // }, []);
 
-  useEffect(() => {
-    if (!user) {
-      navigate("/");
-    }
-  }, [user]);
+  // useEffect(() => {
+  //   if (!user) {
+  //     navigate("/");
+  //   }
+  // }, [user]);
+  // const handleLogout = () => {
+  //   signOut(auth);
+  // };
+  // if (!user) {
+  //   return <>not set</>;
   const handleLogout = () => {
     signOut(auth);
+    return navigate("/");
   };
-  if (!user) {
-    return <>not set</>;
-  }
   return (
     <TaskProvider>
       <>
-        <h1>Your To-Do</h1>
+        <div className="nav">
+          <h1>Your To-Do</h1>
+          <button onClick={handleLogout}>Log Out</button>
+        </div>
         <TaskInput placeholder="Add a task" />
         <Filtermenu />
         <TaskContainer filter="all" />
-        <button onClick={handleLogout}>Log Out</button>
       </>
     </TaskProvider>
   );
