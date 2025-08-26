@@ -1,6 +1,6 @@
 .login-container {
   margin-top: 40px;
-  display: flex;
+  /* display: flex; */
   justify-content: center;
   align-items: center;
   font-family: "Segoe UI", sans-serif;
@@ -35,7 +35,7 @@
   border-color: #0f0f0f;
   box-shadow: 0 0 0 2px rgba(122, 122, 122, 0.2);
 }
-.login-box button {
+.email-login {
   width: 100%;
   padding: 12px;
   background-color: black;
@@ -45,6 +45,23 @@
   font-size: 15px;
   cursor: pointer;
 }
-.login-box button:hover {
+.email-login:hover {
   background-color: #313131;
+}
+.google-login {
+  width: 60%;
+  padding: 12px;
+  background-color: rgb(86, 86, 86);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  cursor: pointer;
+}
+.login-box h4 {
+  margin: 0;
+  margin-top: 12px;
+  margin-bottom: 12px;
+  color: #333;
+  font-weight: 600;
 }

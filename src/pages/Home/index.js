@@ -2,8 +2,34 @@ import TaskInput from "../../components/TaskInput";
 import TaskContainer from "../../components/TaskContainer";
 import Filtermenu from "../../components/FilterMenu";
 import TaskProvider from "../../TaskContext";
+import { auth } from "../../firebase";
+
+import { signOut, onAuthStateChanged } from "firebase/auth";
+import { Navigate, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 export default function Home() {
+  const navigate = useNavigate();
+  const [user, setUser] = useState(null);
+  useEffect(() => {
+    // const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    //   debugger;
+    //   setUser(currentUser);
+    // });
+    // return () => unsubscribe();
+  }, []);
+
+  useEffect(() => {
+    if (!user) {
+      navigate("/");
+    }
+  }, [user]);
+  const handleLogout = () => {
+    signOut(auth);
+  };
+  if (!user) {
+    return <>not set</>;
+  }
   return (
     <TaskProvider>
       <>
@@ -11,6 +37,7 @@ export default function Home() {
         <TaskInput placeholder="Add a task" />
         <Filtermenu />
         <TaskContainer filter="all" />
+        <button onClick={handleLogout}>Log Out</button>
       </>
     </TaskProvider>
   );

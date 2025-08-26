@@ -17,25 +17,25 @@ function App() {
         <Route
           path="/home"
           element={
-            <ProtectedRoute>
-              <Home />
-            </ProtectedRoute>
+            // <ProtectedRoute>
+            <Home />
+            //</ProtectedRoute>
           }
         />
         <Route
           path="/completedtodo"
           element={
-            <ProtectedRoute>
-              <CompletedToDo />
-            </ProtectedRoute>
+            // <ProtectedRoute>
+            <CompletedToDo />
+            //</ProtectedRoute>
           }
         />
         <Route
           path="/incompletedtodo"
           element={
-            <ProtectedRoute>
-              <IncompleteToDo />
-            </ProtectedRoute>
+            // <ProtectedRoute>
+            <IncompleteToDo />
+            //</ProtectedRoute>
           }
         />
       </Routes>

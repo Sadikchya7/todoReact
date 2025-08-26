@@ -1,34 +1,139 @@
-import "./style.css";
+// import "./style.css";
 
+// export default function LoginPage() {
+//   return (
+//     <div className="login-container">
+//       <div className="login-box">
+//         <h2>Login</h2>
+
+//         {!isAuthenticated ? (
+//           <button
+//             onClick={() => {
+//               debugger;
+//               loginWithRedirect();
+//             }}
+//           >
+//             Log In
+//           </button>
+//         ) : (
+//           <>
+//             <button
+//               onClick={() =>
+//                 logout({ returnTo: window.location.origin + "/home" })
+//               }
+//             >
+//               Log Out
+//             </button>
+//           </>
+//         )}
+//       </div>
+//     </div>
+//   );
+// }
+
+import { useState, useEffect } from "react";
+import { auth } from "../../firebase";
+import {
+  signInWithEmailAndPassword,
+  signOut,
+  GoogleAuthProvider,
+  signInWithPopup,
+  onAuthStateChanged,
+} from "firebase/auth";
+import { Navigate } from "react-router-dom";
+
+import "./style.css";
+// const provider = new GoogleAuthProvider();
+// provider.addScope("https://www.googleapis.com/auth/contacts.readonly");
 export default function LoginPage() {
+  const [user, setUser] = useState(null);
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+    if (user) {
+      debugger;
+
+      return <Navigate to="/home" />;
+    }
+
+    return () => unsubscribe();
+  }, []);
+
+  const handleEmailLogin = () => {
+    const emailLogin = email;
+    const passwordLogin = password;
+
+    signInWithEmailAndPassword(auth, emailLogin, passwordLogin);
+  };
+
+  const handleGoogleLogin = () => {
+    const provider = new GoogleAuthProvider();
+    signInWithPopup(auth, provider);
+  };
+
   return (
     <div className="login-container">
       <div className="login-box">
         <h2>Login</h2>
 
-        {!isAuthenticated ? (
-          <button
-            onClick={() => {
-              debugger;
-              loginWithRedirect();
-            }}
-          >
-            Log In
-          </button>
+        {user ? (
+          <Navigate to="/home" />
         ) : (
           <>
+            <form>
+              <input
+                value={email}
+                placeholder="Email"
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+              <input
+                value={password}
+                type="password"
+                placeholder="Password"
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </form>
             <button
-              onClick={() =>
-                logout({ returnTo: window.location.origin + "/home" })
-              }
+              className="email-login"
+              type="submit"
+              onClick={handleEmailLogin}
             >
-              Log Out
+              Login
             </button>
           </>
         )}
+        <h4>Or</h4>
+        <button className="google-login" onClick={handleGoogleLogin}>
+          Log In with Google
+        </button>
       </div>
+      {/* <div className="google-login"></div> */}
     </div>
   );
+}
+
+{
+  /* {!user ? (
+          <>
+            <button onClick={handleEmailLogin}>Log In with Email</button>
+            <br></br>
+            <br></br>
+            <button onClick={handleGoogleLogin}>Log In with Google</button>
+          </>
+        ) : (
+          <>
+           < <button onClick={handleLogout}>Log Out</button>>
+          </>
+        )} */
+}
+{
+  /* <button onClick={handleEmailLogin}>Log In with Email</button> */
 }
 
 // import { useState } from "react";
@@ -58,6 +163,7 @@ export default function LoginPage() {
 //   //   // return <Navigate to="/home" />;
 //   // }
 //   // if (isLoggedIn || isCorrectPassword) {
+
 //   //   return <Navigate to="/home" />;
 //   // }
 //   debugger;
